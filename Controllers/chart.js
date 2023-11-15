@@ -3,11 +3,11 @@ function showChart(){
     let labels = [];
     let datas = [];
 
-  axios.get(`${serverURL}/steps/userID/eq/${loggedUser.ID}`).then((res) => {
+  axios.get(`${serverURL}/users/userID/eq/${loggedUser.ID}`).then((res) => {
     res.data.sort((a,b) => a.date.localeCompare(b.date));
     res.data.forEach((item) => {
       labels.push(item.date.toString().split("T")[0]);
-      datas.push(item.steps);
+      datas.push(item.amount);
     });
   });
 
@@ -20,7 +20,7 @@ function showChart(){
         labels: labels,
         datasets: [
           {
-            label: "Lépésszám:",
+            label: "Költségvetések:",
             data: datas,
             borderWidth: 3,
           },

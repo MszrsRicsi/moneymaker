@@ -7,49 +7,31 @@ function getToday(){
     setTimeout(()=>{setMaxDate()}, 500);
 }
 
-function addSteps(){
+function addData(){
 
     let date = document.querySelector('#date');
-    let steps = document.querySelector('#steps');
+    let amount = document.querySelector('#amount');
+    let income = document.querySelector("#bevetel");
+    let title = document.querySelector("#title");
 
-    if (date.value == "" || steps.value == 0 ){
+    if (date.value == "" || amount.value == 0 && income.selectedIndex != 0){
         showMessage("Nem adtál meg minden adatot!");
     }
-    else{
-        axios.get(`${serverURL}/steps/userID/eq/${loggedUser.ID}`).then(res=>{
-            let vane = false;
-            let upID = -1;
-            res.data.forEach(item => {
-                if (item.date.split('T')[0] == date.value){
-                    vane = true;
-                    upID = item.ID;
-                    return;
-                }
-            });
-            if(vane){
-                let data = {
-                    steps : steps.value	
-                }
-                axios.patch(`${serverURL}/steps/ID/eq/${upID}`, data).then((res)=>{
-                    alert('A lépésszám módosítva!');
-                    date.value = null;
-                    steps.value = 0;
-                });
-            }
-            else{
-                let data = {
-                    userID : loggedUser.ID,	
-                    date : date.value,	
-                    steps : steps.value	
-                }
-
-                axios.post(`${serverURL}/steps`, data).then((res)=>{
-                    alert('A lépésszám rögzítve!');
-                    date.value = null;
-                    steps.value = 0;
-                });
-            }
-        })
+    else
+    {
+        let data = {
+            userID: loggedUser.ID,
+            date: date.value,
+            amount: amount.value,
+            type: income.value,
+            tag: title.value
+        };
+        axios.post(`${serverURL}/items`, data).then((res)=>{
+            alert('Adatok rögzítve!');
+            date.value = null;
+            amount.value = 0;
+            income.selectedIndex = 0;
+        });
     }
 }
 
