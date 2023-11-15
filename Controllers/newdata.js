@@ -11,10 +11,10 @@ function addData(){
 
     let date = document.querySelector('#date');
     let amount = document.querySelector('#amount');
-    let income = document.querySelector("#bevetel");
+    let income = document.querySelector("#type");
     let title = document.querySelector("#title");
 
-    if (date.value == "" || amount.value == 0 && income.selectedIndex != 0){
+    if (date.value == "" || amount.value == 0 || income.selectedIndex == 0){
         showMessage("Nem adtál meg minden adatot!");
     }
     else

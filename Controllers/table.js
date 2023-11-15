@@ -5,6 +5,7 @@ function getAllAmount(){
     axios.get(`${serverURL}/items/userID/eq/${loggedUser.ID}`).then(res=>{
         let i = 0;
         let sum = 0;
+
         res.data.sort((a,b) => a.date.localeCompare(b.date));
         res.data.forEach(item => {
             let tr = document.createElement('tr');
@@ -13,13 +14,21 @@ function getAllAmount(){
             let td3 = document.createElement('td');
 
             i++;
-            sum += item.amount;
 
             td1.innerHTML = i + '.';
 
             td2.innerHTML = item.date.split('T')[0];
 
-            td3.innerHTML = item.amount;
+            if (item.type == 1)
+            {
+                sum += item.amount;
+                td3.innerHTML = item.amount;
+            }
+            else
+            {
+                sum -= item.amount;
+                td3.innerHTML = "-" + item.amount;
+            }
             td3.classList.add('text-end');
 
             tr.appendChild(td1);
