@@ -9,7 +9,7 @@
     <label for="date">Dátum</label>
 </div>
 
-<select class="form-select mb-3">
+<select class="form-select mb-3" id="bevetel">
     <option selected>+/-</option>
     <option value="1">Bevétel</option>
     <option value="2">Kiadás</option>
@@ -17,12 +17,12 @@
 
 <div class="form-floating mb-3">
     <input type="text" class="form-control" id="title" placeholder="" max="">
-    <label for="mode">Címke</label>
+    <label for="title">Címke</label>
 </div>
 
 <div class="form-floating mb-3">
-    <input type="number" class="form-control" id="steps" placeholder="" min="0" value="0">
-    <label for="steps">Összeg</label>
+    <input type="number" class="form-control" id="amount" placeholder="" min="0" value="0">
+    <label for="amount">Összeg</label>
 </div>
 
-<button class="btn btn-primary mb-3" onclick="addSteps()">Rögzítés</button>
+<button class="btn btn-primary mb-3" onclick="addData()">Rögzítés</button>
