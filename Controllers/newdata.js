@@ -1,6 +1,6 @@
 function setMaxDate(){
     let date = document.querySelector('#date');
-    date.max =  new Date().toISOString().split("T")[0];
+    date.max = new Date().toISOString().split("T")[0];
 }
 
 function getToday(){
@@ -14,7 +14,7 @@ function addData(){
     let income = document.querySelector("#type");
     let title = document.querySelector("#title");
 
-    if (date.value == "" || amount.value == 0 || income.selectedIndex == 0){
+    if (date.value == "" || amount.value == 0 || income.selectedIndex == 0 || title.value == ""){
         showMessage("Nem adtál meg minden adatot!");
     }
     else
@@ -31,8 +31,7 @@ function addData(){
             date.value = null;
             amount.value = 0;
             income.selectedIndex = 0;
+            title.value = "";
         });
     }
 }
-
-getToday();

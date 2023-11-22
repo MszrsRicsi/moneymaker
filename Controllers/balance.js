@@ -1,4 +1,3 @@
-
 function showBalance(){
     let labels = [];
     let datas = [];
@@ -7,7 +6,16 @@ function showBalance(){
     res.data.sort((a,b) => a.date.localeCompare(b.date));
     res.data.forEach((item) => {
       labels.push(item.date.toString().split("T")[0]);
-      datas.push(item.amount);
+      let amount = 0;
+      if (item.type == 1)
+      {
+        amount = item.amount;
+      }
+      else
+      {
+        amount = item.amount * -1;
+      }
+      datas.push(amount);
     });
   });
 
@@ -15,7 +23,7 @@ function showBalance(){
     const ctx = document.getElementById("myBalanceCanvas");
 
     new Chart(ctx, {
-      type: "bar",
+      type: "line",
       data: {
         labels: labels,
         datasets: [
@@ -29,10 +37,12 @@ function showBalance(){
       options: {
         scales: {
           y: {
-            beginAtZero: true,
+            beginAtZero: false,
           },
         },
       },
     });
   }, 500);
 }
+
+showBalance();
