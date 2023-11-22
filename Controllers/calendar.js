@@ -7,19 +7,21 @@ function showCalendar(){
 
             if (item.type == 1)
             {
-                amount = item.amount;
+              amount = item.amount;
+              color = "Green"
             }
             else
             {
-                amount = "-" + item.amount;
+              amount = item.amount * -1;
+              color = "Red";
             }
 
             myEvents.push({
                 title: amount,
                 start: item.date,
                 allDay: true,
-                backgroundColor: '#336c56',
-                borderColor: '#336c56',
+                backgroundColor: color,
+                borderColor: color,
             })
         });
     });
