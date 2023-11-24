@@ -5,7 +5,6 @@ function showBalance(){
   axios.get(`${serverURL}/items/userID/eq/${loggedUser.ID}`).then((res) => {
     res.data.sort((a,b) => a.date.localeCompare(b.date));
     res.data.forEach((item) => {
-      labels.push(item.date.toString().split("T")[0]);
       let amount = 0;
       if (item.type == 1)
       {
@@ -15,7 +14,17 @@ function showBalance(){
       {
         amount = item.amount * -1;
       }
-      datas.push(amount);
+
+      let contains = labels.find(element => element == item.date.toString().split('T')[0])
+      if (contains != null)
+      {
+        datas[labels.indexOf(item.date.toString().split('T')[0])] += amount;
+      }
+      else
+      {
+        labels.push(item.date.toString().split("T")[0]);
+        datas.push(amount);
+      }
     });
   });
 

@@ -1,28 +1,51 @@
 
 function showChart(){
     let labels = [];
-    let datas = [];
     PositiveAmounts = [];
     NegativeAmounts = [];
 
   axios.get(`${serverURL}/items/userID/eq/${loggedUser.ID}`).then((res) => {
     res.data.sort((a,b) => a.date.localeCompare(b.date));
     res.data.forEach((item) => {
-      labels.push(item.date.toString().split("T")[0]);
-      let amount;
-      
+      let amount = 0;
       if (item.type == 1)
       {
-        PositiveAmounts.push(item.amount);
-        NegativeAmounts.push(0);
+        amount = item.amount;
       }
       else
       {
-        NegativeAmounts.push(item.amount * -1);
-        PositiveAmounts.push(0);
+        amount = item.amount * -1;
       }
 
-      datas.push(amount);
+      let contains = labels.find(element => element == item.date.toString().split('T')[0])
+      if (contains != null)
+      {
+        if (item.type == 1)
+        {
+          PositiveAmounts[labels.indexOf(item.date.toString().split('T')[0])] += amount;
+          NegativeAmounts.push(0);
+        }
+        else
+        {
+          NegativeAmounts[labels.indexOf(item.date.toString().split('T')[0])] += amount;
+          PositiveAmounts.push(0);
+        }
+      }
+      else
+      {
+        labels.push(item.date.toString().split("T")[0]);
+
+        if (item.type == 1)
+        {
+          PositiveAmounts.push(amount);
+          NegativeAmounts.push(0);
+        }
+        else
+        {
+          NegativeAmounts.push(amount);
+          PositiveAmounts.push(0);
+        }
+      }
     });
   });
   console.log(PositiveAmounts, NegativeAmounts)
